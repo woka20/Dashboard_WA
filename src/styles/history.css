@@ -1,6 +1,18 @@
 .history-table-container {
-    font-size: 16px;
+    font-size: 14px;
     color: #000000;
-    padding: 0 50px;
+    padding: 0 50px 30px 50px;
     text-align: center;
+}
+
+.history-vertical-align {
+    vertical-align: middle !important;
+}
+
+.history-min-width-320 {
+    min-width: 320px;
+}
+
+.history-min-width-130 {
+    min-width: 130px;
 }

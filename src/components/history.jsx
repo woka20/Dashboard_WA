@@ -3,25 +3,61 @@ import React from 'react'
 import {connect} from 'unistore/react'
 import {withRouter, Link} from 'react-router-dom'
 import {store, actions} from '../store'
+import axios from 'axios'
 import {Table} from 'react-bootstrap'
-import '../styles/bootstrap.min.css';
+import '../styles/bootstrap.min.css'
 import '../styles/history.css'
 
 class History extends React.Component{
+    componentDidMount = async () => {
+        /**
+        * Hit related API to get all messaging history from database
+        */
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "get",
+            url: this.props.baseUrl + "message/history",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            params: {
+                p: 1,
+                rp: 100
+            },
+            validateStatus: (status) => {
+                return status < 500
+            }
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                historyList: response.data
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+        });
+    }
+    
     render(){
         // Get all histories
-        let histories = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let histories = this.props.historyList
 
         // Define JSX variable which build the table rows
-        let historiesTable = histories.map((record, index) => {
+        let historiesTable = histories.map((record) => {
             return (
                 <tr>
-                    <td>{index + 1}</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
+                    <td className = 'history-vertical-align'>{record.uuid}</td>
+                    <td className = 'history-vertical-align'>{record.from_number}</td>
+                    <td className = 'history-vertical-align'>{record.to_number}</td>
+                    <td className = 'history-vertical-align'>{record.message_type}</td>
+                    <td className = 'history-vertical-align' style = {{textAlign: "left"}}>{record.text_message}</td>
+                    <td className = 'history-vertical-align'>{record.status}</td>
+                    <td className = 'history-vertical-align'>{record.timestamp}</td>
                 </tr>
             )
         })
@@ -34,12 +70,13 @@ class History extends React.Component{
                             <Table responsive bordered hover>
                                 <thead>
                                     <tr>
-                                        <th>ID Pesan</th>
-                                        <th>No. Pengirim</th>
-                                        <th>No. Penerima</th>
-                                        <th>Isi Pesan</th>
-                                        <th>Status</th>
-                                        <th>Waktu Terkirim / Terima</th>
+                                        <th className = 'history-vertical-align history-min-width-320'>ID Pesan</th>
+                                        <th className = 'history-vertical-align history-min-width-130'>No. Pengirim</th>
+                                        <th className = 'history-vertical-align history-min-width-130'>No. Penerima</th>
+                                        <th className = 'history-vertical-align'>Tipe</th>
+                                        <th className = 'history-vertical-align'>Isi Pesan</th>
+                                        <th className = 'history-vertical-align'> Status</th>
+                                        <th className = 'history-vertical-align history-min-width-130'>Waktu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,4 +91,4 @@ class History extends React.Component{
     }
 }
 
-export default connect('',actions)(withRouter(History))
+export default connect('baseUrl, historyList',actions)(withRouter(History))
