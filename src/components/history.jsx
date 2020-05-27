@@ -30,10 +30,16 @@ class History extends React.Component{
      * @param {string} messageStatus Status of the message
      */
     getMessageStatus = (messageStatus) => {
-        if (messageStatus === 'sent') {
+        if (messageStatus === 'sent' || messageStatus === 'submitted') {
             return 'Terkirim'
-        } else if (messageStatus === 'accepted') {
+        } else if (messageStatus === 'delivered') {
             return 'Diterima'
+        } else if (messageStatus === 'read') {
+            return 'Dibaca'
+        } else if (messageStatus === 'rejected') {
+            return 'Ditolak'
+        } else if (messageStatus === 'undeliverable') {
+            return 'Tidak Terkirim'
         } else {
             return messageStatus
         }
