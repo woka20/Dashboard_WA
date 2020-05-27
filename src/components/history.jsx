@@ -45,38 +45,44 @@ class History extends React.Component{
         }
     }
     
-    componentDidMount = async () => {
-        /**
-        * Hit related API to get all messaging history from database
-        */
-        // Define object that will be passed as an argument to axios function
-        const axiosArgs = {
-            method: "get",
-            url: this.props.baseUrl + "message/history",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            params: {
-                p: 1,
-                rp: 100
-            },
-            validateStatus: (status) => {
-                return status < 500
-            }
-        };
+    componentDidMount = () => {
+        // Define some variables needed
+        let baseUrl = this.props.baseUrl
+        
+        // Set time interval so it will automatically update the history each one second
+        setInterval(async function() {
+            /**
+            * Hit related API to get all messaging history from database
+            */
+            // Define object that will be passed as an argument to axios function
+            const axiosArgs = {
+                method: "get",
+                url: baseUrl + "message/history",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                params: {
+                    p: 1,
+                    rp: 100
+                },
+                validateStatus: (status) => {
+                    return status < 500
+                }
+            };
 
-        // Hit related API (passed axiosArgs as the argument) and manage the response
-        await axios(axiosArgs)
-        .then(response => {
-            // Set the store using the data returned by the API
-            store.setState({
-                historyList: response.data
+            // Hit related API (passed axiosArgs as the argument) and manage the response
+            await axios(axiosArgs)
+            .then(response => {
+                // Set the store using the data returned by the API
+                store.setState({
+                    historyList: response.data
+                })
             })
-        })
-        .catch(error => {
-            console.warn(error);
-        });
+            .catch(error => {
+                console.warn(error);
+            });
+        }, 1000)
     }
     
     render(){
