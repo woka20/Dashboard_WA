@@ -9,6 +9,36 @@ import '../styles/bootstrap.min.css'
 import '../styles/history.css'
 
 class History extends React.Component{
+    /**
+     * The following method is designed to get appropriate message type
+     * 
+     * @param {string} messageType Type of the message
+     */
+    getMessageType = (messageType) => {
+        if (messageType === 'text') {
+            return 'Teks'
+        } else if (messageType === 'image') {
+            return 'Gambar'
+        } else {
+            return 'File'
+        }
+    }
+
+    /**
+     * The following method is designed to get appropriate status type
+     * 
+     * @param {string} messageStatus Status of the message
+     */
+    getMessageStatus = (messageStatus) => {
+        if (messageStatus === 'sent') {
+            return 'Terkirim'
+        } else if (messageStatus === 'accepted') {
+            return 'Diterima'
+        } else {
+            return messageStatus
+        }
+    }
+    
     componentDidMount = async () => {
         /**
         * Hit related API to get all messaging history from database
@@ -49,14 +79,36 @@ class History extends React.Component{
 
         // Define JSX variable which build the table rows
         let historiesTable = histories.map((record) => {
+            // Define what will be on 'Isi Pesan' if the type of the message is image or file
+            let messageContent = record.text_message
+            if (record.message_type === 'image' || record.message_type === 'file') {
+                messageContent = (
+                    <React.Fragment>
+                        <span style = {{fontWeight: "bold"}}>Media URL</span><br />
+                        <span>{record.media_url}</span><br />
+                        <span style = {{fontWeight: "bold"}}>Keterangan</span><br />
+                        <span>{record.caption}</span><br />
+                    </React.Fragment>
+                )
+            }
+
+            // Define what will be on 'Isi Pesan' if the type of the message is text but the text is empty   
+            if (record.message_type === 'text' && record.text_message === null) {
+                messageContent = (
+                    <div style = {{textAlign: 'center', opacity: '0.4', fontStyle: 'italic'}}>
+                        Tidak bisa membaca pesan
+                    </div>
+                )
+            }
+
             return (
                 <tr>
                     <td className = 'history-vertical-align'>{record.uuid}</td>
                     <td className = 'history-vertical-align'>{record.from_number}</td>
                     <td className = 'history-vertical-align'>{record.to_number}</td>
-                    <td className = 'history-vertical-align'>{record.message_type}</td>
-                    <td className = 'history-vertical-align' style = {{textAlign: "left"}}>{record.text_message}</td>
-                    <td className = 'history-vertical-align'>{record.status}</td>
+                    <td className = 'history-vertical-align'>{this.getMessageType(record.message_type)}</td>
+                    <td className = 'history-vertical-align' style = {{textAlign: "left"}}>{messageContent}</td>
+                    <td className = 'history-vertical-align'>{this.getMessageStatus(record.status)}</td>
                     <td className = 'history-vertical-align'>{record.timestamp}</td>
                 </tr>
             )
