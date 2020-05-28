@@ -7,7 +7,7 @@ import {Form,
         Button} from 'react-bootstrap'
 
 
-class FormMessage extends React.Component{
+class NonTextMessage extends React.Component{
     render(){
         return (
             <React.Fragment>
@@ -21,8 +21,12 @@ class FormMessage extends React.Component{
                          <Form.Control type='text' placeholder='Masukan Nomor Tujuan'></Form.Control>
                      </FormGroup>
                      <FormGroup>
-                         <Form.Label>Text Message</Form.Label>
-                         <Form.Control as='textarea' row="5"></Form.Control>
+                         <Form.Label>Media URL</Form.Label>
+                         <Form.Control as='text'></Form.Control>
+                     </FormGroup>
+                     <FormGroup>
+                         <Form.Label>Caption</Form.Label>
+                         <Form.Control as='text'></Form.Control>
                      </FormGroup>
                      <Button variant="primary">Sent</Button>
                  </Form>
@@ -31,5 +35,4 @@ class FormMessage extends React.Component{
     }
 }
 
-export default connect('',actions)(withRouter(FormMessage))
-// export default(FormMessage)
+export default connect('',actions)(withRouter(NonTextMessage))
