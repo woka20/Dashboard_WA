@@ -48,9 +48,10 @@ class History extends React.Component{
     componentDidMount = () => {
         // Define some variables needed
         let baseUrl = this.props.baseUrl
+        localStorage.setItem('inDashboard', 'true');
         
         // Set time interval so it will automatically update the history each one second
-        setInterval(async function() {
+        let updateHistory = setInterval(async function() {
             /**
             * Hit related API to get all messaging history from database
             */
@@ -82,6 +83,11 @@ class History extends React.Component{
             .catch(error => {
                 console.warn(error);
             });
+
+            // Break the loop when user go to other page
+            if (localStorage.getItem("inDashboard") === 'false') {
+                clearInterval(updateHistory)
+            }
         }, 1000)
     }
     

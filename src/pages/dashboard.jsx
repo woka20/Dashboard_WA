@@ -15,6 +15,12 @@ import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
+    /**
+     * The following method is designed to export history into csv / xls file
+     */
+    exportCsv = () => {
+    }
+
     render(){
         return (
             <React.Fragment>
@@ -25,7 +31,9 @@ class Dashboard extends React.Component{
                         <Col md = "6" sm = "12">
                             <span className = 'dashboard-history-title'>RIWAYAT PERCAKAPAN</span>
                         </Col>
-                        <Col md = "3" sm = "12"></Col>
+                        <Col md = "3" sm = "12">
+                            <Button onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
+                        </Col>
                     </Row>
                 </Container>
                 <History />
