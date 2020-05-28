@@ -25,14 +25,14 @@ class Dashboard extends React.Component{
         return (
             <React.Fragment>
                 <Header menuActive = {'/dashboard'} />
-                <Container className = 'dashboard-title-container'>
+                <Container fluid className = 'dashboard-title-container'>
                     <Row>
-                        <Col md = "3" sm = "12"></Col>
-                        <Col md = "6" sm = "12">
+                        <Col md = "2" sm = "12"></Col>
+                        <Col md = "8" sm = "12">
                             <span className = 'dashboard-history-title'>RIWAYAT PERCAKAPAN</span>
                         </Col>
-                        <Col md = "3" sm = "12">
-                            <Button onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
+                        <Col md = "2" sm = "12">
+                            <Button style = {{fontSize: "16px", marginRight: "40px"}} onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
                         </Col>
                     </Row>
                 </Container>
