@@ -27,12 +27,13 @@ class Dashboard extends React.Component{
                 <Header menuActive = {'/dashboard'} />
                 <Container fluid className = 'dashboard-title-container'>
                     <Row>
-                        <Col md = "2" sm = "12"></Col>
-                        <Col md = "8" sm = "12">
+                        <Col md = "3" sm = "12"></Col>
+                        <Col md = "6" sm = "12">
                             <span className = 'dashboard-history-title'>RIWAYAT PERCAKAPAN</span>
                         </Col>
-                        <Col md = "2" sm = "12">
-                            <Button style = {{fontSize: "16px", marginRight: "40px"}} onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
+                        <Col md = "3" sm = "12">
+                            <Button style = {{fontSize: "16px", marginRight: "25px"}} onClick = {() => this.props.updateTable()} >Perbarui</Button>
+                            <Button style = {{fontSize: "16px", marginRight: "22px"}} onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
                         </Col>
                     </Row>
                 </Container>
