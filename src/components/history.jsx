@@ -38,57 +38,48 @@ class History extends React.Component{
             return 'Dibaca'
         } else if (messageStatus === 'rejected') {
             return 'Ditolak'
-        } else if (messageStatus === 'undeliverable') {
-            return 'Tidak Terkirim'
+        } else if (messageStatus === 'undeliverable' || messageStatus === 'failed') {
+            return 'Gagal'
         } else {
             return messageStatus
         }
     }
     
-    componentDidMount = () => {
+    componentDidMount = async () => {
         // Define some variables needed
         let baseUrl = this.props.baseUrl
-        localStorage.setItem('inDashboard', 'true');
         
-        // Set time interval so it will automatically update the history each one second
-        let updateHistory = setInterval(async function() {
-            /**
-            * Hit related API to get all messaging history from database
-            */
-            // Define object that will be passed as an argument to axios function
-            const axiosArgs = {
-                method: "get",
-                url: baseUrl + "message/history",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                },
-                params: {
-                    p: 1,
-                    rp: 100
-                },
-                validateStatus: (status) => {
-                    return status < 500
-                }
-            };
-
-            // Hit related API (passed axiosArgs as the argument) and manage the response
-            await axios(axiosArgs)
-            .then(response => {
-                // Set the store using the data returned by the API
-                store.setState({
-                    historyList: response.data
-                })
-            })
-            .catch(error => {
-                console.warn(error);
-            });
-
-            // Break the loop when user go to other page
-            if (localStorage.getItem("inDashboard") === 'false') {
-                clearInterval(updateHistory)
+        /**
+        * Hit related API to get all messaging history from database
+        */
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "get",
+            url: baseUrl + "message/history",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            params: {
+                p: 1,
+                rp: 100
+            },
+            validateStatus: (status) => {
+                return status < 500
             }
-        }, 1000)
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                historyList: response.data
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+        });
     }
     
     render(){
@@ -97,6 +88,31 @@ class History extends React.Component{
 
         // Define JSX variable which build the table rows
         let historiesTable = histories.map((record) => {
+            // Define what will be on 'ID Pesan'
+            let uuid = (
+                <span>{record.uuid}</span>
+            )
+            if (record.uuid === 'Error') {
+                uuid = (
+                    <div style = {{fontStyle: 'italic', textAlign: 'center', opacity: '0.4'}}>
+                        Error
+                    </div>
+                )
+            }
+            
+            // Define what will be on 'Penerima' column
+            let receiver = ''
+            if (record.receiver === '' || record.receiver === null) {
+                receiver = <span>{record.to_number}</span>
+            } else {
+                receiver = (
+                    <React.Fragment>
+                        <span style = {{fontWeight: 'bold'}}>{record.receiver}</span><br />
+                        <span>{record.to_number}</span>
+                    </React.Fragment>
+                )
+            }
+            
             // Define what will be on 'Isi Pesan' if the type of the message is image or file
             let messageContent = record.text_message
             if (record.message_type === 'image' || record.message_type === 'file') {
@@ -121,9 +137,9 @@ class History extends React.Component{
 
             return (
                 <tr>
-                    <td className = 'history-vertical-align'>{record.uuid}</td>
+                    <td className = 'history-vertical-align'>{uuid}</td>
                     <td className = 'history-vertical-align'>{record.from_number}</td>
-                    <td className = 'history-vertical-align'>{record.to_number}</td>
+                    <td className = 'history-vertical-align'>{receiver}</td>
                     <td className = 'history-vertical-align'>{this.getMessageType(record.message_type)}</td>
                     <td className = 'history-vertical-align' style = {{textAlign: "left"}}>{messageContent}</td>
                     <td className = 'history-vertical-align'>{this.getMessageStatus(record.status)}</td>
@@ -141,8 +157,8 @@ class History extends React.Component{
                                 <thead>
                                     <tr>
                                         <th className = 'history-vertical-align history-min-width-320'>ID Pesan</th>
-                                        <th className = 'history-vertical-align history-min-width-130'>No. Pengirim</th>
-                                        <th className = 'history-vertical-align history-min-width-130'>No. Penerima</th>
+                                        <th className = 'history-vertical-align history-min-width-130'>Pengirim</th>
+                                        <th className = 'history-vertical-align history-min-width-130'>Penerima</th>
                                         <th className = 'history-vertical-align'>Tipe</th>
                                         <th className = 'history-vertical-align'>Isi Pesan</th>
                                         <th className = 'history-vertical-align'> Status</th>

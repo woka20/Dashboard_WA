@@ -13,22 +13,26 @@ class Header extends React.Component{
                 <div className = 'container-fluid'>
                     <div className = 'row header-container'>
                         <div className = 'col-md-3 col-sm-12 header-company-name'>
-                            Halo, Company Name!
+                            Halo, Alterra!
                         </div>
                         <div className = 'col-md-5 col-sm-12'></div>
                         <div className = 'col-md-4 col-sm-12 header-menu-container'>
                             <ul className = "header-menu">
                                 {this.props.menuActive === "/dashboard" ?
-                                <li className="header-menu-active"><Link to = {`/dashboard`}>Laporan</Link></li>
+                                <li className="header-menu-active"><Link to = {`/dashboard`}>Beranda</Link></li>
                                 :
-                                <li><Link to = {`/dashboard`}>Laporan</Link></li>
+                                <li><Link to = {`/dashboard`}>Beranda</Link></li>
                                 }
                                 {this.props.menuActive === "/sending" ?
-                                <li className = "header-menu-active"><Link to = {`/belanja`}>Kirim Pesan</Link></li>
+                                <li className = "header-menu-active"><Link to = {`/sending`}>Kirim Pesan</Link></li>
                                 :
                                 <li><Link to = {`/sending`}>Kirim Pesan</Link></li>
                                 }
-                                <li><Link to = {'/'}>Keluar</Link></li>
+                                {this.props.menuActive === "/profile" ?
+                                <li className = "header-menu-active"><Link to = {`/profile`}>Profil</Link></li>
+                                :
+                                <li><Link to = {`/sending`}>Profil</Link></li>
+                                }
                             </ul>
                         </div>
                     </div>
