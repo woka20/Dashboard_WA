@@ -18,7 +18,10 @@ const initialState={
     redirect:false,
     company_name="",
     username:"",
-    password:""
+    password:"",
+    user_log:"",
+    pass_log:"",
+    log_as:""
 
 }
 
