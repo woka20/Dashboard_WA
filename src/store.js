@@ -15,7 +15,10 @@ const initialState={
     sender_id:"",
     caption:"",
     receiver:"",
-    redirect:false
+    redirect:false,
+    company_name="",
+    username:"",
+    password:""
 
 }
 
