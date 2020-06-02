@@ -9,19 +9,43 @@ import {Container,
         Form,
         FormGroup,
         Button} from 'react-bootstrap'
+import { CSVLink } from "react-csv"
 import '../styles/bootstrap.min.css'
 import '../styles/dashboard.css'
 import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
-    /**
-     * The following method is designed to export history into csv / xls file
-     */
-    exportCsv = () => {
-    }
-
     render(){
+        /**
+         * Prepare and format the history data to be in csv format
+         */
+        // Preparing title and header
+        let csvFile = [
+            [""], // Left the first row empty
+            ["", "Riwayat Percakapan"], // Give title
+            ["", "Hingga tanggal 26 April 2020"], // The date of latest update
+            [""], // Left empty
+            ["", "ID Pesan", "Nama Pengirim", "Nomor Pengirim", "Nama Penerima", "Nomor Penerima", "Tipe Pesan", "Isi Pesan", "Status", "Waktu"], // Header,
+        ]
+
+        // Preparing history data
+        let historyData = this.props.historyList.map((data) => {
+            return [
+                "",
+                data.uuid,
+                "Alterra Academy",
+                data.from_number,
+                data.receiver,
+                data.to_number,
+                data.message_type,
+                data.text_message,
+                data.status,
+                data.timestamp
+            ]
+        })
+        csvFile.push(...historyData)
+
         return (
             <React.Fragment>
                 <Header menuActive = {'/dashboard'} />
@@ -33,7 +57,7 @@ class Dashboard extends React.Component{
                         </Col>
                         <Col md = "3" sm = "12">
                             <Button style = {{fontSize: "16px", marginRight: "25px"}} onClick = {() => this.props.updateTable()} >Perbarui</Button>
-                            <Button style = {{fontSize: "16px", marginRight: "22px"}} onClick = {() => this.exportCsv()}>Ekspor CSV / XLS</Button>
+                            <CSVLink data = {csvFile} className = "btn btn-primary" filename = {"Riwayat Percakapan.csv"} style = {{fontSize: "16px", marginRight: "22px"}}>Ekspor CSV / XLS</CSVLink>
                         </Col>
                     </Row>
                 </Container>
@@ -43,4 +67,4 @@ class Dashboard extends React.Component{
     }
 }
 
-export default connect('',actions)(withRouter(Dashboard))
+export default connect('historyList',actions)(withRouter(Dashboard))

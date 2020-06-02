@@ -156,7 +156,7 @@ class History extends React.Component{
                             <Table responsive bordered hover>
                                 <thead>
                                     <tr>
-                                        <th className = 'history-vertical-align history-min-width-320'>ID Pesan</th>
+                                        <th className = 'history-vertical-align history-min-width-330'>ID Pesan</th>
                                         <th className = 'history-vertical-align history-min-width-130'>Pengirim</th>
                                         <th className = 'history-vertical-align history-min-width-130'>Penerima</th>
                                         <th className = 'history-vertical-align'>Tipe</th>
