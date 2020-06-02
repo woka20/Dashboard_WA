@@ -5,6 +5,7 @@ import SendingForm from '../pages/sendForms'
 import Dashboard from '../pages/dashboard'
 import Register from "../pages/register"
 import AddProduct from "../pages/addProduct"
+import TableProduct from '../pages/productTable'
 import {store} from '../store'
 
 const MainRoute=()=>{
@@ -16,6 +17,7 @@ const MainRoute=()=>{
                 <Route exact path='/dashboard' component={Dashboard}/>
                 <Route exact path='/register' component={Register}/>
                 <Route exact path='/product' component={AddProduct}/>
+                <Route exact path='/tableproduct' component={TableProduct}/>
             </Switch>
             </BrowserRouter>
         </Provider>

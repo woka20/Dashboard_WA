@@ -18,7 +18,8 @@ const initialState={
     redirect:false,
     company_name="",
     username:"",
-    password:""
+    password:"",
+    productTab:[]
 
 }
 
