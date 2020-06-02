@@ -3,6 +3,7 @@ import axios from 'axios'
 import {store,actions} from '../store'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'unistore/react'
+//Bootrsap For Layout
 import {Container,
         Col,
         Row,
@@ -12,7 +13,8 @@ import {Container,
 
 
 class RegisterForm extends React.Component{
-    Register=async()=>{
+    //register function by send required input from the global state in store.js
+    registerFunc=async()=>{
         req={method:"post",
              url:"http://127.0.0.1:5000/register",
              headers:{"Access-Control-Allow-Origin":"*"},
@@ -33,6 +35,7 @@ class RegisterForm extends React.Component{
     }
     render(){
         return(
+            //The interface for register form
             <React.Fragment>
                 <Container>
                     <Form>
@@ -48,7 +51,7 @@ class RegisterForm extends React.Component{
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" onChange={event=>this.prop.handleSetGlobal(event)}></Form.Control>
                         </FormGroup>
-                        <Button variant="primary" onClick={()=>this.Register()}>Register</Button>
+                        <Button variant="primary" onClick={()=>this.registerFunc()}>Register</Button>
                     </Form>
                 </Container>
             </React.Fragment>
@@ -57,5 +60,5 @@ class RegisterForm extends React.Component{
     }
 
 }
-
+//enabling export teh class above
 export default connect('company_name, username,password',actions)(withRouter(RegisterForm))

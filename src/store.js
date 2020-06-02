@@ -20,6 +20,10 @@ const initialState={
     username:"",
     password:"",
     productTab:[]
+    user_log:"",
+    pass_log:"",
+    log_as:""
+
 
 }
 
