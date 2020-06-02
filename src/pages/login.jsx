@@ -27,6 +27,12 @@ class Login extends React.Component{
                 await axios(req)
                 .then((response)=>{
                         alert("Anda Berhasil Login")
+                        localStorage.setItem("token", response.data.token)
+                        if (this.props.username !== "admin" && this.props.pass_log!=="admin"){
+                                store.setState({log_as:"non-admin"})
+                        }else{
+                                store.setState({log_as:"admin"})
+                        }
 
                 })
                 .catch((error)=>{
