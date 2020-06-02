@@ -1,18 +1,20 @@
 import createStore from 'unistore'
 import axios from 'axios'
+import { wait } from '@testing-library/react'
 
 const initialState={
     BulkOrNot: "Single",
-    typeMsg:"Text",
+    typeMsg:"text",
     trigger:"None",
     newForm: null,
-    file:null,
+    file:[],
     from_number:"",
     to_number:"",
     text_message:"",
     media_url:"",
+    sender_id:"",
     caption:"",
-    input:null,
+    receiver:"",
     redirect:false
 
 }
@@ -30,7 +32,7 @@ export const actions=store=>({
         const file=event.target.files[0]
         var allList=[]
         reader.readAsText(file)
-        reader.onload=()=>{
+        reader.onload=async()=>{
             var content=reader.result
             var splitContent=content.split("\n")
             var headers=splitContent[0].split(/[;,]+/)
@@ -44,34 +46,66 @@ export const actions=store=>({
                 allList.push(obj)
                 }
             }
+            await store.setState({file:allList})
         }
-        store.setState({file:allList})
+      
     },
 
     handleSendMessage:(state,event)=>{
-        if(state.typeMsg==="Text"){
-            store.setState({input:{
-                from_number:state.from_number,
-                to_number:state.from_number,
-                text_message:state.text_message
-            }})
+        var obj={}
+       
+        if(state.typeMsg==="text"){
+            obj.sender_id=state.sender_id
+            obj.to_number=state.to_number
+            obj.message_type=state.typeMsg
+            obj.text_message=state.text_message
+            
         }else{
-            store.setState({input:{
-                from_number:state.from_number,
-                to_number:state.from_number,
-                media_url:state.media_url,
-                caption:state.caption
-            }})
+            
+            obj.to_number=state.to_number
+            obj.message_type=state.typeMsg
+            obj.media_url=state.media_url
+            obj.caption=state.caption
+        
+            
         }
+    
         const req={method:"post",
                   url:"http://127.0.0.1:5000/message",
-                  headers:{"Access-Control-Allow-Origin":"*","Authorization":"Bearer"+"NN"},
-                  data:state.input
+                  headers:{"Access-Control-Allow-Origin":"*"},
+                  data:obj
                 }
                 axios(req)
                 .then((response)=>{
-                    alert("Pesan Anda Telah Dikirim")
                     store.setState({redirect:true})
+                    alert("Pesan Anda Telah Dikirim")
+
+
+                })
+                .catch((error)=>alert(error))
+    },
+
+    handleBulkMessage:(state,event)=>{
+        var obj={}
+        state.file.map(index=>{
+             obj.to_number=index['to_number']
+             obj.message_type=index['message_type']
+             obj.text_message=index['text_message']
+             obj.media_url=index['media_url']
+             obj.caption=index['caption']
+             obj.receiver=index['receiver']
+            
+        })
+     
+        const req={method:"post",
+                  url:"http://127.0.0.1:5000/message_bulk",
+                  headers:{"Access-Control-Allow-Origin":"*"},
+                  data:obj
+                }
+                axios(req)
+                .then((response)=>{
+                    store.setState({redirect:true})
+                    alert("Pesan Anda Telah Dikirim")
 
                 })
                 .catch((error)=>alert(error))

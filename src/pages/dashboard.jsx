@@ -13,6 +13,7 @@ import {Container,
 class Dashboard extends React.Component{
 
     render(){
+        store.setState({redirect:false})
         return (
             <React.Fragment>
                  <p>SUCCESS</p>

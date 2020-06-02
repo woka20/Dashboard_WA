@@ -13,18 +13,18 @@ import NonTextMsg from '../components/formMessageNonText'
 import BulkMessage from '../components/formBulkMsg'
 
 class SendingForm extends React.Component{
-   componentDidMount=async()=>{
-       if (this.props.redirect===true){
-           this.props.history("/dashboard")
-       }else{
-           console.log("OK")
-       }
+//    componentDidMount=async()=>{
+//        if (this.props.redirect===true){
+//            this.props.history("/dashboard")
+//        }else{
+//            console.log("OK")
+//        }
 
-   }
+//    }
 
     generateForm=(n1,n2)=>{
         if(n1==="Single"){
-            if(n2==="Text"){
+            if(n2==="text"){
                 store.setState({newForm:<FormMessage/>})
             }else{
                 store.setState({newForm:<NonTextMsg/>})
@@ -34,6 +34,11 @@ class SendingForm extends React.Component{
         }
     }
     render(){
+        if (this.props.redirect===true){
+            this.props.history.push("/dashboard")
+        }else{
+            console.log("OK")
+        }
         return (
             <React.Fragment>
                  <Container fluid>
@@ -49,9 +54,10 @@ class SendingForm extends React.Component{
                        <Col md="2">
                             <Dropdown>
                                 <DropdownButton variant="danger"  title={this.props.typeMsg}>
-                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"Text"})}> Text</Dropdown.Item>
-                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"Image"})}>Image</Dropdown.Item>
-                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"File"})}>File</Dropdown.Item>
+                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"text"})}> Text</Dropdown.Item>
+                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"image"})}>Image</Dropdown.Item>
+                                    <Dropdown.Item onClick={event=>store.setState({typeMsg:"file"})}>File</Dropdown.Item>
+                                
                                 </DropdownButton>
                             </Dropdown>
                             <Col sm="2">
@@ -73,4 +79,4 @@ class SendingForm extends React.Component{
     }
 }
 
-export default connect('typeMsg,BulkOrNot,redirect, newForm',actions)(withRouter(SendingForm))
+export default connect('typeMsg,BulkOrNot,redirect, file,newForm',actions)(withRouter(SendingForm))

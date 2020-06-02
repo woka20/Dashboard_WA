@@ -8,6 +8,7 @@ import {Form,
 
 
 class NonTextMessage extends React.Component{
+    
     render(){
         return (
             <React.Fragment>

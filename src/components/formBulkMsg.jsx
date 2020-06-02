@@ -18,13 +18,13 @@ class BulkMessage extends React.Component{
                          <br/>
                          <input type="file" name="file" onChange={(event)=>this.props.handleFileUpload(event)}></input>
                      </FormGroup>
-                     <p>{this.props.file}</p>
-                     <Button variant="primary">Sent</Button>
+                    
+                     <Button variant="primary" onClick={event=>this.props.handleBulkMessage(event)}>Sent</Button>
                  </Form>
             </React.Fragment>
         )
     }
 }
 
-export default connect('',actions)(withRouter(BulkMessage))
+export default connect('file',actions)(withRouter(BulkMessage))
 // export default(FormMessage)
