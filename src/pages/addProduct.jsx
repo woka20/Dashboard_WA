@@ -56,6 +56,7 @@ class AddProduct extends React.Component{
     render(){
         return(
             <React.Fragment>
+            <Container>
                 <Form>
                     <FormGroup>
                         <Form.Label>Nama Produk</Form.Label>
@@ -68,12 +69,12 @@ class AddProduct extends React.Component{
                          <Form.Label>API KEY</Form.Label>
                          <Form.Control type="text" onChange={event=>this.setState({api_key:event.target.value})}></Form.Control> 
                     <Row>
-                        <Col><Button variant="primary" onClick={event=>this.props.addProductFunc(event)}>ADD PRODUCT</Button></Col>
+                        <Col><Button variant="primary" onClick={event=>this.addProductFunc(event)}>ADD PRODUCT</Button></Col>
                         <Col> <Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
                     </Row>
                     
                 </Form>
-              
+            </Container>              
             </React.Fragment>
         )
     }
