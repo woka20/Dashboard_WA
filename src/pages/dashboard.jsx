@@ -16,15 +16,27 @@ import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
+    
+
     render(){
         /**
          * Prepare and format the history data to be in csv format
          */
+        // Formatting time
+        let timeNow = this.props.latestUpdate
+        let timeNowArray = timeNow.split(" ")
+        let month = timeNowArray[1]
+        let date = timeNowArray[2]
+        let year = timeNowArray[3]
+        let time = timeNowArray[4]
+        let formattedString = "Hingga tanggal " + date + " " + month + " " + year + " "
+        formattedString += ("pukul " + time)
+
         // Preparing title and header
         let csvFile = [
             [""], // Left the first row empty
             ["", "Riwayat Percakapan"], // Give title
-            ["", "Hingga tanggal 26 April 2020"], // The date of latest update
+            ["", formattedString], // The time of latest update
             [""], // Left empty
             ["", "ID Pesan", "Nama Pengirim", "Nomor Pengirim", "Nama Penerima", "Nomor Penerima", "Tipe Pesan", "Isi Pesan", "Status", "Waktu"], // Header,
         ]
@@ -34,7 +46,7 @@ class Dashboard extends React.Component{
             return [
                 "",
                 data.uuid,
-                "Alterra Academy",
+                data.sender_name,
                 data.from_number,
                 data.receiver,
                 data.to_number,
@@ -67,4 +79,4 @@ class Dashboard extends React.Component{
     }
 }
 
-export default connect('historyList',actions)(withRouter(Dashboard))
+export default connect('historyList, latestUpdate',actions)(withRouter(Dashboard))

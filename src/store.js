@@ -6,7 +6,8 @@ const initialState={
     baseUrl: 'http://localhost:5000/',
 
     // Dashboard related
-    historyList: []
+    historyList: [],
+    latestUpdate: ''
 }
 
 export const store=createStore(initialState)
@@ -47,7 +48,8 @@ export const actions=store=>({
         .then(response => {
             // Set the store using the data returned by the API
             store.setState({
-                historyList: response.data
+                historyList: response.data,
+                latestUpdate: Date().toString()
             })
         })
         .catch(error => {

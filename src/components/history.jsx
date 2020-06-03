@@ -74,7 +74,8 @@ class History extends React.Component{
         .then(response => {
             // Set the store using the data returned by the API
             store.setState({
-                historyList: response.data
+                historyList: response.data,
+                latestUpdate: Date().toString()
             })
         })
         .catch(error => {
@@ -100,6 +101,19 @@ class History extends React.Component{
                 )
             }
             
+            // Define what will be on 'Pengirim' column
+            let sender = ''
+            if (record.sender_name === '' || record.sender_name === null) {
+                sender = <span>{record.from_number}</span>
+            } else {
+                sender = (
+                    <React.Fragment>
+                        <span style = {{fontWeight: 'bold'}}>{record.sender_name}</span><br />
+                        <span>{record.from_number}</span>
+                    </React.Fragment>
+                )
+            }
+
             // Define what will be on 'Penerima' column
             let receiver = ''
             if (record.receiver === '' || record.receiver === null) {
@@ -138,7 +152,7 @@ class History extends React.Component{
             return (
                 <tr>
                     <td className = 'history-vertical-align'>{uuid}</td>
-                    <td className = 'history-vertical-align'>{record.from_number}</td>
+                    <td className = 'history-vertical-align'>{sender}</td>
                     <td className = 'history-vertical-align'>{receiver}</td>
                     <td className = 'history-vertical-align'>{this.getMessageType(record.message_type)}</td>
                     <td className = 'history-vertical-align' style = {{textAlign: "left"}}>{messageContent}</td>
@@ -177,4 +191,4 @@ class History extends React.Component{
     }
 }
 
-export default connect('baseUrl, historyList',actions)(withRouter(History))
+export default connect('baseUrl, historyList, latestUpdate',actions)(withRouter(History))
