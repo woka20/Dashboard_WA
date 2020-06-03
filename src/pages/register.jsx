@@ -25,7 +25,7 @@ class RegisterForm extends React.Component{
             }
         await axios(req)
         .then((response)=>{
-            alert(response.data)
+            alert("Anda Berhasil Didaftarkan, Silahkan Login!")
             this.props.history.push("/login")
 
         })
@@ -41,15 +41,15 @@ class RegisterForm extends React.Component{
                     <Form>
                         <FormGroup>
                             <Form.Label>Company Name</Form.Label>
-                            <Form.Control type="text" name="company_name" onChange={event=>this.prop.handleSetGlobal(event)}></Form.Control>
+                            <Form.Control type="text" name="company_name" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                         </FormGroup>
                         <FormGroup>
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" name="username" onChange={event=>this.prop.handleSetGlobal(event)}></Form.Control>
+                            <Form.Control type="text" name="username" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                         </FormGroup>
                         <FormGroup>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" onChange={event=>this.prop.handleSetGlobal(event)}></Form.Control>
+                            <Form.Control type="password" name="password" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                         </FormGroup>
                         <Button variant="primary" onClick={()=>this.registerFunc()}>Register</Button>
                     </Form>

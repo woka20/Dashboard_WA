@@ -9,6 +9,7 @@ const initialState={
     newForm: null,
     file:[],
     from_number:"",
+    product_name:"",
     to_number:"",
     text_message:"",
     media_url:"",
@@ -69,7 +70,8 @@ export const actions=store=>({
             obj.text_message=state.text_message
             
         }else{
-            
+
+            obj.sender_id=state.sender_id
             obj.to_number=state.to_number
             obj.message_type=state.typeMsg
             obj.media_url=state.media_url
@@ -80,7 +82,7 @@ export const actions=store=>({
     
         const req={method:"post",
                   url:"http://127.0.0.1:5000/message",
-                  headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'},
+                  headers:{"Access-Control-Allow-Origin":"*","Authorization":"Bearer " + localStorage.getItem("token"),"Content-Type": "application/json"},
                   data:obj
                 }
                 axios(req)
@@ -97,6 +99,7 @@ export const actions=store=>({
         var obj={}
         state.file.map(index=>{
              obj.to_number=index['to_number']
+             obj.product_name=index['product_name']
              obj.message_type=index['message_type']
              obj.text_message=index['text_message']
              obj.media_url=index['media_url']
@@ -104,11 +107,11 @@ export const actions=store=>({
              obj.receiver=index['receiver']
             
         })
-     
+        // console.log(state.file)
         const req={method:"post",
                   url:"http://127.0.0.1:5000/message_bulk",
                   headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'},
-                  data:obj
+                  data:{csv_file:state.file}
                 }
                 axios(req)
                 .then((response)=>{
@@ -118,10 +121,11 @@ export const actions=store=>({
                 })
                 .catch((error)=>alert(error))
     },
-    logOutFunc:(state,event)=>{
+    
+    logOutFunc:async(state,event)=>{
         localStorage.removeItem("token")
         localStorage.removeItem("log_as")
-        store.setState({logout:true})
+        await store.setState({logout:true})
 
     }
 })

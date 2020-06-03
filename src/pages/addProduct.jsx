@@ -28,7 +28,7 @@ class AddProduct extends React.Component{
         this.state={
             name_product:"",
             phone_product:"",
-            api_key:"ddd-ddd"
+            api_key:['299a3afd:tchOyRAB5oEtSrBW']
         }
     }
     addProductFunc=async()=>{
@@ -59,16 +59,21 @@ class AddProduct extends React.Component{
                 <Form>
                     <FormGroup>
                         <Form.Label>Nama Produk</Form.Label>
-                        <Form.Control type="text" onChange={value=>this.setState({name_product:value})}></Form.Control>
+                        <Form.Control type="text" onChange={event=>this.setState({name_product:event.target.value})}></Form.Control>
                     </FormGroup>
                     <FormGroup>
                         <Form.Label>Nomor Telepon</Form.Label>
-                        <Form.Control type="text" onChange={value=>this.setState({phoneproduct:value})}></Form.Control>
+                        <Form.Control type="text" onChange={event=>this.setState({phone_product:event.target.value})}></Form.Control>
                     </FormGroup>
                          <Form.Label>API KEY</Form.Label>
-                         <Form.Control type="text" onChange={value=>this.setState({api_key:value})}></Form.Control> 
-                    <Button variant="primary" onClick={()=>this.addProductFunc()}></Button>
+                         <Form.Control type="text" onChange={event=>this.setState({api_key:event.target.value})}></Form.Control> 
+                    <Row>
+                        <Col><Button variant="primary" onClick={event=>this.props.addProductFunc(event)}>ADD PRODUCT</Button></Col>
+                        <Col> <Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
+                    </Row>
+                    
                 </Form>
+              
             </React.Fragment>
         )
     }
