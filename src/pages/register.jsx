@@ -15,7 +15,7 @@ import {Container,
 class RegisterForm extends React.Component{
     //register function by send required input from the global state in store.js
     registerFunc=async()=>{
-        req={method:"post",
+       const req={method:"post",
              url:"http://127.0.0.1:5000/register",
              headers:{"Access-Control-Allow-Origin":"*"},
              data:{name:this.props.company_name,

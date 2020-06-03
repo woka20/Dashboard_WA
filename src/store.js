@@ -16,7 +16,7 @@ const initialState={
     caption:"",
     receiver:"",
     redirect:false,
-    company_name="",
+    company_name:"",
     username:"",
     password:"",
     productTab:[],
@@ -80,7 +80,7 @@ export const actions=store=>({
     
         const req={method:"post",
                   url:"http://127.0.0.1:5000/message",
-                  headers:{"Access-Control-Allow-Origin":"*"},
+                  headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'},
                   data:obj
                 }
                 axios(req)
@@ -107,7 +107,7 @@ export const actions=store=>({
      
         const req={method:"post",
                   url:"http://127.0.0.1:5000/message_bulk",
-                  headers:{"Access-Control-Allow-Origin":"*"},
+                  headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'},
                   data:obj
                 }
                 axios(req)

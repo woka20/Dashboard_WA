@@ -13,22 +13,29 @@ import {Container,
 
 class AddProduct extends React.Component{
     componentDidMount=()=>{
-        
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
     }
     
     constructor(props){
         super(props)
         this.state={
-            name_product="",
-            phone_product="",
-            api_key="ddd-ddd"
+            name_product:"",
+            phone_product:"",
+            api_key:"ddd-ddd"
         }
     }
     addProductFunc=async()=>{
-        req={
+        const req={
             method:"post",
             url:"http://127.0.0.1:5000/product",
-            headers:{"Access-Control-Allow-Origin":"*"},
+            headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'},
             data:{
                 name:this.state.name_product,
                 phone_number:this.state.phone_product,

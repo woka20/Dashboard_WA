@@ -11,6 +11,16 @@ import {Container,
 
 
 class Dashboard extends React.Component{
+    componentDidMount=()=>{
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
+    }
 
     render(){
         store.setState({redirect:false})

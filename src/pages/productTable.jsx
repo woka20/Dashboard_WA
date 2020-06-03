@@ -12,10 +12,20 @@ import {Container,
 
 class ShowTable extends React.Component{
     componentDidMount=async()=>{
-        req={
+  
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
+        
+        const req={
             method:"get",
             url:"http://127.0.0.1:5000/product",
-            headers:{"Access-Control-Allow-Origin":"*"}
+            headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'}
         }
         await axios(req)
         .then((response)=>{

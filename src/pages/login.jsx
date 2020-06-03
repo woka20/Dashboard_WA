@@ -14,7 +14,7 @@ import {Container,
 class Login extends React.Component{
         //This function will send all state required to make request for login in BackEnd
         loginFunc=async()=>{
-                req={
+                const req={
                         method:"post",
                         url:"http://127.0.0.1:5000/login",
                         headers:{"Access-Control-Allow-Origin":"*"},
