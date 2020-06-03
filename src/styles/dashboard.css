@@ -1,0 +1,10 @@
+.dashboard-title-container {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.dashboard-history-title {
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+}

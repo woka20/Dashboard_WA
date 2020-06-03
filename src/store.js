@@ -3,6 +3,13 @@ import axios from 'axios'
 import { wait } from '@testing-library/react'
 
 const initialState={
+    // General
+    baseUrl: 'http://localhost:5000/',
+
+    // Dashboard related
+    historyList: [],
+    latestUpdate: '',
+  
     BulkOrNot: "Single",
     typeMsg:"text",
     trigger:"None",
@@ -24,8 +31,6 @@ const initialState={
     user_log:"",
     pass_log:"",
     logout:false
-
-
 }
 
 export const store=createStore(initialState)
@@ -36,6 +41,45 @@ export const actions=store=>({
             [event.target.name]:event.target.value
         })
     },
+
+    /**
+     * The following method is designed to update data in history table
+     */
+    updateTable: async (state) => {
+        /**
+        * Hit related API to get all messaging history from database
+        */
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "get",
+            url: initialState.baseUrl + "message/history",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            params: {
+                p: 1,
+                rp: 100
+            },
+            validateStatus: (status) => {
+                return status < 500
+            }
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                historyList: response.data,
+                latestUpdate: Date().toString()
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+        });
+    },
+  
     handleFileUpload:(state,event)=>{
         let reader=new FileReader()
         const file=event.target.files[0]
@@ -126,6 +170,7 @@ export const actions=store=>({
         localStorage.removeItem("token")
         localStorage.removeItem("log_as")
         await store.setState({logout:true})
+        store.setState({logout:true})
 
     }
 })

@@ -1,0 +1,50 @@
+.header-container {
+    height: 80px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0px 5px 30px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 5px 30px -12px rgba(0,0,0,0.75);
+    box-shadow: 0px 5px 30px -12px rgba(0,0,0,0.75);
+}
+
+.header-company-name {
+    margin: auto;
+    padding-left: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.header-menu-container {
+    margin: auto;
+}
+
+.header-menu {
+    white-space: nowrap;
+    text-align: right;
+    margin: auto;
+}
+
+.header-menu li {
+    font-size: 18px;
+    font-weight: bold;
+    list-style: none;
+    display: inline;
+    padding: 0 30px;
+}
+
+.header-menu li a {
+    text-decoration: none;
+    color: #857B7B;
+}
+
+.header-menu li a:hover {
+    text-decoration: none;
+    color: #D32026;
+}
+
+.header-menu-active a {
+    color: #D32026 !important;
+}
+
+.header-white-space{
+    height: 80px;
+}
