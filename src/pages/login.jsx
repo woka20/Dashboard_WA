@@ -29,9 +29,9 @@ class Login extends React.Component{
                         alert("Anda Berhasil Login")
                         localStorage.setItem("token", response.data.token)
                         if (this.props.username === "admin" && this.props.pass_log==="admin"){
-                                store.setState({log_as:"admin"})
+                                localStorage.setItem("log_as","admin")
                         }else{
-                                store.setState({log_as:"non-admin"})
+                                localStorage.setItem("log_as","non-admin")
                         }
 
                 })

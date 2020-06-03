@@ -19,10 +19,10 @@ const initialState={
     company_name="",
     username:"",
     password:"",
-    productTab:[]
+    productTab:[],
     user_log:"",
     pass_log:"",
-    log_as:""
+    logout:false
 
 
 }
@@ -117,5 +117,11 @@ export const actions=store=>({
 
                 })
                 .catch((error)=>alert(error))
+    },
+    logOutFunc:(state,event)=>{
+        localStorage.removeItem("token")
+        localStorage.removeItem("log_as")
+        store.setState({logout:true})
+
     }
 })
