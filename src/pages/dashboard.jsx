@@ -5,7 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {store, actions} from '../store'
 import {Container, 
         Row,
-        Col, 
+        Col,
         Form,
         FormGroup,
         Button} from 'react-bootstrap'
@@ -79,4 +79,4 @@ class Dashboard extends React.Component{
     }
 }
 
-export default connect('historyList, latestUpdate',actions)(withRouter(Dashboard))
+export default connect('historyList, latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
