@@ -12,10 +12,20 @@ import {Container,
 
 class ShowTable extends React.Component{
     componentDidMount=async()=>{
-        req={
+  
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
+        
+        const req={
             method:"get",
             url:"http://127.0.0.1:5000/product",
-            headers:{"Access-Control-Allow-Origin":"*"}
+            headers:{"Access-Control-Allow-Origin":"*",'Authorization':'Bearer ' + localStorage.getItem("token"),'Content-Type': 'application/json'}
         }
         await axios(req)
         .then((response)=>{
@@ -53,6 +63,11 @@ class ShowTable extends React.Component{
                             </tr>)}
                         </tbody>
                     </Table>
+                    <Row>
+                        <Col><Button variant="primary" onClick={event=>this.props.history.push("/product")}>ADD PRODUCT</Button></Col>
+                       <Col> <Button variant="success" onClick={event=>this.props.history.push("/sending")}>SENDING MESSAGE</Button></Col>
+                      <Col><Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
+                   </Row>
                 </Container>
             </React.Fragment>
         )

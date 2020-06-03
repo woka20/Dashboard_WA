@@ -16,9 +16,31 @@ import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
+
+    componentDidMount=()=>{
     
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
+    }
+    goSending=()=>{
+        this.props.history.push("/sending")
+    }
+
+    addingProduct=()=>{
+        this.props.history.push("/product")
+    }
 
     render(){
+        if (this.props.logout===true){
+            this.props.history.push("/login")
+        }
+        store.setState({redirect:false})
         /**
          * Prepare and format the history data to be in csv format
          */
@@ -79,4 +101,6 @@ class Dashboard extends React.Component{
     }
 }
 
+
 export default connect('historyList, latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
+

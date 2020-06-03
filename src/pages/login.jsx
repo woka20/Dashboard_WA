@@ -14,7 +14,7 @@ import {Container,
 class Login extends React.Component{
         //This function will send all state required to make request for login in BackEnd
         loginFunc=async()=>{
-                req={
+                const req={
                         method:"post",
                         url:"http://127.0.0.1:5000/login",
                         headers:{"Access-Control-Allow-Origin":"*"},
@@ -26,17 +26,19 @@ class Login extends React.Component{
                 //Using axios to make request
                 await axios(req)
                 .then((response)=>{
-                        alert("Anda Berhasil Login")
                         localStorage.setItem("token", response.data.token)
                         if (this.props.username === "admin" && this.props.pass_log==="admin"){
                                 localStorage.setItem("log_as","admin")
                         }else{
                                 localStorage.setItem("log_as","non-admin")
                         }
+                        alert("Anda Berhasil Login")
+                        this.props.history.push("/dashboard")
 
                 })
                 .catch((error)=>{
                         alert(error)
+                        this.props.history.push("/login")
                 })
 
         }
@@ -48,11 +50,11 @@ class Login extends React.Component{
                                 <Form>
                                    <FormGroup>
                                         <Form.Label>Username</Form.Label>
-                                        <Form.Control type="text" name="user_log" onChange={event=>this.props.setHandleGlobal(event)}></Form.Control>
+                                        <Form.Control type="text" name="user_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                                    </FormGroup>
                                    <FormGroup>
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" name="pass_log" onChange={event=>this.props.setHandleGlobal(event)}></Form.Control>
+                                        <Form.Control type="password" name="pass_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                                    </FormGroup>
                                    <Button variant="primary" onClick={()=>this.loginFunc()}>Login</Button>
                                 </Form>
@@ -64,4 +66,4 @@ class Login extends React.Component{
 
 }
 //enabling export teh class above
-export default connect('user_log,pass_log,log_as', actions)(withRouter(Login))
+export default connect('user_log,pass_log', actions)(withRouter(Login))

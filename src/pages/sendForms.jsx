@@ -13,14 +13,16 @@ import NonTextMsg from '../components/formMessageNonText'
 import BulkMessage from '../components/formBulkMsg'
 
 class SendingForm extends React.Component{
-//    componentDidMount=async()=>{
-//        if (this.props.redirect===true){
-//            this.props.history("/dashboard")
-//        }else{
-//            console.log("OK")
-//        }
-
-//    }
+    componentDidMount=()=>{
+        try{
+            if (localStorage.getItem("token")===null){
+                this.props.history.push("/login")
+            }
+        }
+        catch(err){
+            this.props.history.push("/login")
+        }
+    }
 
     generateForm=(n1,n2)=>{
         if(n1==="Single"){

@@ -6,6 +6,7 @@ import Dashboard from '../pages/dashboard'
 import Register from "../pages/register"
 import AddProduct from "../pages/addProduct"
 import TableProduct from '../pages/productTable'
+import Login from '../pages/login'
 import {store} from '../store'
 
 const MainRoute=()=>{
@@ -18,6 +19,7 @@ const MainRoute=()=>{
                 <Route exact path='/register' component={Register}/>
                 <Route exact path='/product' component={AddProduct}/>
                 <Route exact path='/tableproduct' component={TableProduct}/>
+                <Route exact path='/login' component={Login}/>
             </Switch>
             </BrowserRouter>
         </Provider>
