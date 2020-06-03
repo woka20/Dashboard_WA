@@ -19,9 +19,11 @@ const initialState={
     company_name="",
     username:"",
     password:"",
+    productTab:[]
     user_log:"",
     pass_log:"",
     log_as:""
+
 
 }
 
