@@ -1,7 +1,7 @@
 .history-table-container {
     font-size: 14px;
     color: #000000;
-    padding: 0 50px 30px 50px;
+    padding: 0 50px 30px 50px !important;
     text-align: center;
 }
 
