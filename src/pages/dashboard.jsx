@@ -16,18 +16,7 @@ import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
-
-    // componentDidMount=()=>{
-    
-    //     try{
-    //         if (localStorage.getItem("token")===null){
-    //             this.props.history.push("/login")
-    //         }
-    //     }
-    //     catch(err){
-    //         this.props.history.push("/login")
-    //     }
-    // }
+  s
     goSending=()=>{
         this.props.history.push("/sending")
     }
@@ -40,7 +29,8 @@ class Dashboard extends React.Component{
         if (localStorage.getItem("token")===false){
             this.props.history.push("/login")
         }
-        store.setState({redirect:false})
+        store.setState({redirect: false})
+
         /**
          * Prepare and format the history data to be in csv format
          */
@@ -85,11 +75,11 @@ class Dashboard extends React.Component{
                 <Header menuActive = {'/dashboard'} />
                 <Container fluid className = 'dashboard-title-container'>
                     <Row>
-                        <Col md = "3" sm = "12"></Col>
-                        <Col md = "6" sm = "12">
+                        <Col md = "4" sm = "12"></Col>
+                        <Col md = "4" sm = "12">
                             <span className = 'dashboard-history-title'>RIWAYAT PERCAKAPAN</span>
                         </Col>
-                        <Col md = "3" sm = "12">
+                        <Col md = "4" sm = "12" style = {{textAlign: 'right', paddingRight: '25px'}}>
                             <Button style = {{fontSize: "16px", marginRight: "25px"}} onClick = {() => this.props.updateTable()} >Perbarui</Button>
                             <CSVLink data = {csvFile} className = "btn btn-primary" filename = {"Riwayat Percakapan.csv"} style = {{fontSize: "16px", marginRight: "22px"}}>Ekspor CSV / XLS</CSVLink>
                         </Col>

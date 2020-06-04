@@ -30,8 +30,8 @@ class History extends React.Component{
      * @param {string} messageStatus Status of the message
      */
     getMessageStatus = (messageStatus) => {
-        if (messageStatus === 'sent' || messageStatus === 'submitted') {
-            return 'Terkirim'
+        if (messageStatus === 'sent' || messageStatus === 'submitted' || messageStatus === 'ON PROCESS') {
+            return 'Dalam Proses'
         } else if (messageStatus === 'delivered') {
             return 'Diterima'
         } else if (messageStatus === 'read') {
@@ -103,7 +103,7 @@ class History extends React.Component{
             
             // Define what will be on 'Pengirim' column
             let sender = ''
-            if (record.sender_name === '' || record.sender_name === null) {
+            if (record.sender_name === '' || record.sender_name === null || record.sender_name === 'None') {
                 sender = <span>{record.from_number}</span>
             } else {
                 sender = (
@@ -116,7 +116,7 @@ class History extends React.Component{
 
             // Define what will be on 'Penerima' column
             let receiver = ''
-            if (record.receiver === '' || record.receiver === null) {
+            if (record.receiver === '' || record.receiver === null || record.receiver === 'None') {
                 receiver = <span>{record.to_number}</span>
             } else {
                 receiver = (
