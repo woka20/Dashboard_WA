@@ -16,7 +16,14 @@ import Header from '../components/header'
 import History from '../components/history'
 
 class Dashboard extends React.Component{
-  s
+    componentDidMount=()=>{
+        if (localStorage.getItem("token")){
+            console.log("OK")
+        }else{
+            this.props.history.push("/login")
+        }
+    }
+  
     goSending=()=>{
         this.props.history.push("/sending")
     }
@@ -26,9 +33,7 @@ class Dashboard extends React.Component{
     }
 
     render(){
-        if (localStorage.getItem("token")===false){
-            this.props.history.push("/login")
-        }
+        
         store.setState({redirect: false})
 
         /**

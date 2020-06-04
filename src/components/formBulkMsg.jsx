@@ -14,7 +14,7 @@ class BulkMessage extends React.Component{
             <React.Fragment>
                  <Form>
                      <FormGroup>
-                         <Form.Label>Input CSV FIle Here</Form.Label>
+                         <Form.Label>Input <strong>CSV</strong> File Here</Form.Label>
                          <br/>
                          <input type="file" name="file" onChange={(event)=>this.props.handleFileUpload(event)}></input>
                      </FormGroup>

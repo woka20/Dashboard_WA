@@ -65,7 +65,7 @@ class ShowTable extends React.Component{
                     <Row>
                         <Col><Button variant="primary" onClick={event=>this.props.history.push("/product")}>ADD PRODUCT</Button></Col>
                        <Col> <Button variant="success" onClick={event=>this.props.history.push("/sending")}>SENDING MESSAGE</Button></Col>
-                      <Col><Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
+                      
                    </Row>
                 </Container>
             </React.Fragment>

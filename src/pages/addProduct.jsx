@@ -72,7 +72,7 @@ class AddProduct extends React.Component{
                          <Form.Control type="text" onChange={event=>this.setState({api_key:event.target.value})}></Form.Control> 
                     <Row>
                         <Col><Button variant="primary" onClick={event=>this.addProductFunc(event)}>ADD PRODUCT</Button></Col>
-                        <Col> <Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
+                        
                     </Row>
                     
                 </Form>

@@ -15,12 +15,13 @@ const initialState={
     trigger:"None",
     newForm: null,
     file:[],
-    from_number:"",
+    from_number:"14157386170",
     product_name:"",
     to_number:"",
     text_message:"",
     media_url:"",
     sender_id:"",
+    sender_name:"Sender Name",
     caption:"",
     receiver:"",
     redirect:false,
@@ -109,6 +110,7 @@ export const actions=store=>({
        
         if(state.typeMsg==="text"){
             obj.sender_id=state.sender_id
+            obj.receiver=state.receiver
             obj.to_number=state.to_number
             obj.message_type=state.typeMsg
             obj.text_message=state.text_message
@@ -116,6 +118,7 @@ export const actions=store=>({
         }else{
 
             obj.sender_id=state.sender_id
+            obj.receiver=state.receiver
             obj.to_number=state.to_number
             obj.message_type=state.typeMsg
             obj.media_url=state.media_url

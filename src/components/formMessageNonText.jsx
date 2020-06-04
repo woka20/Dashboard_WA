@@ -4,22 +4,34 @@ import {withRouter} from 'react-router-dom'
 import {store,actions} from '../store'
 import {Form,
         FormGroup,
-        Button} from 'react-bootstrap'
+        Button,
+        Dropdown,
+        DropdownButton} from 'react-bootstrap'
 
 
 class NonTextMessage extends React.Component{
+  
     
     render(){
         return (
             <React.Fragment>
                  <Form>
                      <FormGroup>
-                         <Form.Label>Sender ID</Form.Label>
-                         <Form.Control type="text" name="sender_id" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
+                     <Form.Label>Sender Name</Form.Label>
+                     <Dropdown>
+                         <DropdownButton variant="warning" title={this.props.sender_name}>
+                         {this.props.productTab.map(index=>
+                         <Dropdown.Item onClick={event=>store.setState({sender_id:index.id,from_number:index.phone_number,sender_name:index.name})} name="sender_id">{index.name}</Dropdown.Item>)}
+                         </DropdownButton>
+                     </Dropdown>
                      </FormGroup>
                      <FormGroup>
                          <Form.Label>From Number</Form.Label>
-                         <Form.Control type='text' name="from_number"  onChange={event=>this.props.handleSetGlobal(event)} placeholder='Masukan Nomor Pengirim'></Form.Control>
+                         <Form.Control type='text' name="from_number"  placeholder={this.props.from_number}></Form.Control>
+                     </FormGroup>
+                     <FormGroup>
+                         <Form.Label>Receiver Name</Form.Label>
+                         <Form.Control type='text' name="receiver" onChange={event=>this.props.handleSetGlobal(event)} placeholder='Nama Penerima'></Form.Control>
                      </FormGroup>
                      <FormGroup>
                          <Form.Label>To Number</Form.Label>
@@ -40,4 +52,4 @@ class NonTextMessage extends React.Component{
     }
 }
 
-export default connect('sender_id,from_number,to_number,media_url,caption',actions)(withRouter(NonTextMessage))
+export default connect('sender_id,from_number,to_number,media_url,caption, productTab, sender_id,sender_name, from_number',actions)(withRouter(NonTextMessage))
