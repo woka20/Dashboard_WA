@@ -27,6 +27,7 @@ class Login extends React.Component{
                 await axios(req)
                 .then((response)=>{
                         localStorage.setItem("token", response.data.token)
+                        localStorage.setItem("company_name", response.data.company_name)
                         if (this.props.username === "admin" && this.props.pass_log==="admin"){
                                 localStorage.setItem("log_as","admin")
                         }else{

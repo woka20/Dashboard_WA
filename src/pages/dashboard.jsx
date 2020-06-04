@@ -14,6 +14,7 @@ import '../styles/bootstrap.min.css'
 import '../styles/dashboard.css'
 import Header from '../components/header'
 import History from '../components/history'
+import MessageFilter from '../components/messageFilter'
 
 class Dashboard extends React.Component{
 
@@ -80,9 +81,13 @@ class Dashboard extends React.Component{
                 <Header menuActive = {'/dashboard'} />
                 <Container fluid className = 'dashboard-title-container'>
                     <Row>
-                        <Col md = "4" sm = "12"></Col>
-                        <Col md = "4" sm = "12">
+                        <Col sm = "12">
                             <span className = 'dashboard-history-title'>RIWAYAT PERCAKAPAN</span>
+                        </Col>
+                    </Row>
+                    <Row style = {{paddingTop: "30px"}}>
+                        <Col md = "8" sm = "12">
+                            <MessageFilter />
                         </Col>
                         <Col md = "4" sm = "12" style = {{textAlign: 'right', paddingRight: '25px'}}>
                             <Button style = {{fontSize: "16px", marginRight: "25px"}} onClick = {() => this.props.updateTable()} >Perbarui</Button>
