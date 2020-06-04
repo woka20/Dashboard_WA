@@ -12,13 +12,7 @@ import {Container,
 
 class ShowTable extends React.Component{
     componentDidMount=async()=>{
-  
-        try{
-            if (localStorage.getItem("token")===null){
-                this.props.history.push("/login")
-            }
-        }
-        catch(err){
+        if (localStorage.getItem("token")===false){
             this.props.history.push("/login")
         }
         
@@ -39,6 +33,9 @@ class ShowTable extends React.Component{
     }
 
     render(){
+        if (localStorage.getItem("token")===false){
+            this.props.history.push("/login")
+        }
         return (
             <React.Fragment>
                 <Container>
@@ -74,4 +71,4 @@ class ShowTable extends React.Component{
     }
 }
 
-export default connect('productTab',actions)(withRouter(ShowTable))
+export default connect('productTab,logout',actions)(withRouter(ShowTable))

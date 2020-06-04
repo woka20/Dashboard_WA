@@ -32,6 +32,7 @@ class Login extends React.Component{
                         }else{
                                 localStorage.setItem("log_as","non-admin")
                         }
+                        store.setState({logout:false})
                         alert("Anda Berhasil Login")
                         this.props.history.push("/dashboard")
 
@@ -66,4 +67,4 @@ class Login extends React.Component{
 
 }
 //enabling export teh class above
-export default connect('user_log,pass_log', actions)(withRouter(Login))
+export default connect('user_log,pass_log,logout', actions)(withRouter(Login))

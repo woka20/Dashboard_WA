@@ -17,17 +17,17 @@ import History from '../components/history'
 
 class Dashboard extends React.Component{
 
-    componentDidMount=()=>{
+    // componentDidMount=()=>{
     
-        try{
-            if (localStorage.getItem("token")===null){
-                this.props.history.push("/login")
-            }
-        }
-        catch(err){
-            this.props.history.push("/login")
-        }
-    }
+    //     try{
+    //         if (localStorage.getItem("token")===null){
+    //             this.props.history.push("/login")
+    //         }
+    //     }
+    //     catch(err){
+    //         this.props.history.push("/login")
+    //     }
+    // }
     goSending=()=>{
         this.props.history.push("/sending")
     }
@@ -37,7 +37,7 @@ class Dashboard extends React.Component{
     }
 
     render(){
-        if (this.props.logout===true){
+        if (localStorage.getItem("token")===false){
             this.props.history.push("/login")
         }
         store.setState({redirect:false})
@@ -102,5 +102,5 @@ class Dashboard extends React.Component{
 }
 
 
-export default connect('historyList, latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
+export default connect('historyList, logout,latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
 

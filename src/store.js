@@ -30,7 +30,7 @@ const initialState={
     productTab:[],
     user_log:"",
     pass_log:"",
-    logout:false
+    logout:true
 }
 
 export const store=createStore(initialState)
@@ -166,10 +166,9 @@ export const actions=store=>({
                 .catch((error)=>alert(error))
     },
     
-    logOutFunc:async(state,event)=>{
+    logOutFunc:(state,event)=>{
         localStorage.removeItem("token")
         localStorage.removeItem("log_as")
-        await store.setState({logout:true})
         store.setState({logout:true})
 
     }
