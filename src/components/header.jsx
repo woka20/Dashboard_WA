@@ -40,6 +40,7 @@ class Header extends React.Component{
                         </div>
                     </div>
                 </div>
+                <div className = "header-white-space"></div>
             </React.Fragment>
         )
     }
