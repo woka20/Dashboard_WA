@@ -15,8 +15,8 @@ class Header extends React.Component{
                         <div className = 'col-md-4 col-sm-12 header-company-name'>
                             Halo, Alterra!
                         </div>
-                        <div className = 'col-md-3 col-sm-12'></div>
-                        <div className = 'col-md-5 col-sm-12 header-menu-container'>
+                        <div className = 'col-md-2 col-sm-12'></div>
+                        <div className = 'col-md-6 col-sm-12 header-menu-container'>
                             <ul className = "header-menu">
                                 {this.props.menuActive === "/dashboard" ?
                                 <li className="header-menu-active"><Link to = {`/dashboard`}>Beranda</Link></li>
@@ -29,9 +29,14 @@ class Header extends React.Component{
                                 <li><Link to = {`/sending`}>Kirim Pesan</Link></li>
                                 }
                                 {this.props.menuActive === "/product" ?
-                                <li className = "header-menu-active"><Link to = {`/product`}>Produk</Link></li>
+                                <li className = "header-menu-active"><Link to = {`/product`}>Tambah Produk</Link></li>
                                 :
-                                <li><Link to = {`/product`}>Produk</Link></li>
+                                <li><Link to = {`/product`}>Tambah Produk</Link></li>
+                                }
+                                {this.props.menuActive === "/tableproduct" ?
+                                <li className = "header-menu-active"><Link to = {`/tableproduct`}>Tabel Produk</Link></li>
+                                :
+                                <li><Link to = {`/tableproduct`}>Tabel Produk</Link></li>
                                 }
                                 <li>
                                     <Link onClick = {() => this.props.logOutFunc()} to = {'/login'}>Keluar</Link>
