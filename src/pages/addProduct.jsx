@@ -9,6 +9,7 @@ import {Container,
         Form,
         FormGroup,
         Button} from 'react-bootstrap'
+import Header from '../components/header'
 
 
 class AddProduct extends React.Component{
@@ -56,6 +57,7 @@ class AddProduct extends React.Component{
     render(){
         return(
             <React.Fragment>
+                <Header menuActive = {'/product'} />
                 <Form>
                     <FormGroup>
                         <Form.Label>Nama Produk</Form.Label>

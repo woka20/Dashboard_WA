@@ -8,6 +8,7 @@ import {Container,
         Dropdown,
         DropdownButton,
         Button} from 'react-bootstrap'
+import Header from '../components/header'
 import FormMessage from '../components/formMessage'
 import NonTextMsg from '../components/formMessageNonText'
 import BulkMessage from '../components/formBulkMsg'
@@ -43,6 +44,7 @@ class SendingForm extends React.Component{
         }
         return (
             <React.Fragment>
+                <Header menuActive = {'/sending'}/>
                  <Container fluid>
                      <Row>
                          <Col md="2">

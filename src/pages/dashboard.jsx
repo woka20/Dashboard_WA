@@ -28,19 +28,14 @@ class Dashboard extends React.Component{
             this.props.history.push("/login")
         }
     }
-    goSending=()=>{
-        this.props.history.push("/sending")
-    }
-
-    addingProduct=()=>{
-        this.props.history.push("/product")
-    }
-
+    
     render(){
-        if (this.props.logout===true){
+        // Check whether the person who access has already logged in or not
+        if (this.props.logout === true){
             this.props.history.push("/login")
         }
-        store.setState({redirect:false})
+        store.setState({redirect: false})
+
         /**
          * Prepare and format the history data to be in csv format
          */
