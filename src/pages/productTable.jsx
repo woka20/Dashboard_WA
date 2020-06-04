@@ -8,6 +8,7 @@ import {Container,
         Row,
         Table,
         Button} from 'react-bootstrap'
+import Header from '../components/header'
 
 
 class ShowTable extends React.Component{
@@ -41,6 +42,7 @@ class ShowTable extends React.Component{
     render(){
         return (
             <React.Fragment>
+                <Header menuActive = {'/tableproduct'} />
                 <Container>
                     <Table striped bordered hover size="sm">
                         <thead>
