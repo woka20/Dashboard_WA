@@ -17,9 +17,28 @@ import History from '../components/history'
 import MessageFilter from '../components/messageFilter'
 
 class Dashboard extends React.Component{
+    /**
+     * The following method is designed to get appropriate status type
+     * 
+     * @param {string} messageStatus Status of the message
+     */
+    getMessageStatus = (messageStatus) => {
+        if (messageStatus === 'sent' || messageStatus === 'submitted' || messageStatus === 'ON PROCESS') {
+            return 'Dalam Proses'
+        } else if (messageStatus === 'delivered') {
+            return 'Diterima'
+        } else if (messageStatus === 'read') {
+            return 'Dibaca'
+        } else if (messageStatus === 'rejected') {
+            return 'Ditolak'
+        } else if (messageStatus === 'undeliverable' || messageStatus === 'failed') {
+            return 'Gagal'
+        } else {
+            return messageStatus
+        }
+    }
 
     componentDidMount=()=>{
-    
         try{
             if (localStorage.getItem("token")===null){
                 this.props.history.push("/login")
@@ -56,21 +75,52 @@ class Dashboard extends React.Component{
             ["", "Riwayat Percakapan"], // Give title
             ["", formattedString], // The time of latest update
             [""], // Left empty
-            ["", "ID Pesan", "Nama Pengirim", "Nomor Pengirim", "Nama Penerima", "Nomor Penerima", "Tipe Pesan", "Isi Pesan", "Status", "Waktu"], // Header,
+            ["", "ID Pesan", "Nama Pengirim", "Nomor Pengirim", "Nama Penerima", "Nomor Penerima", "Tipe Pesan", "Pesan Teks", "Media URL", "Keterangan", "Status", "Waktu"], // Header,
         ]
 
         // Preparing history data
         let historyData = this.props.historyList.map((data) => {
+            // Formatting sender name
+            let sender_name = data.sender_name
+            if (data.sender_name === null || data.sender_name == "None") {
+                sender_name = ""
+            }
+
+            // Formatting receiver
+            let receiver = data.receiver
+            if (data.receiver === null || data.receiver == "None") {
+                receiver = ""
+            }
+
+            // Formatting message type and its content
+            let messageType
+            let textMessage = data.text_message
+            let caption = data.caption
+            let mediaUrl = data.media_url
+            if (data.message_type === 'text') {
+                messageType = 'Teks'
+                caption = ''
+                mediaUrl = ''
+            } else if (data.message_type === 'image') {
+                messageType = 'Gambar'
+                textMessage = ''
+            } else if (data.message_type === 'file') {
+                messageType = 'File'
+                textMessage = ''
+            }
+            
             return [
                 "",
                 data.uuid,
-                data.sender_name,
+                sender_name,
                 data.from_number,
-                data.receiver,
+                receiver,
                 data.to_number,
-                data.message_type,
-                data.text_message,
-                data.status,
+                messageType,
+                textMessage,
+                mediaUrl,
+                caption,
+                this.getMessageStatus(data.status),
                 data.timestamp
             ]
         })

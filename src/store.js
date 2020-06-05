@@ -9,9 +9,13 @@ const initialState={
     // Dashboard related
     historyList: [],
     latestUpdate: '',
+
+    // Filter in dashboard
+    filterType: 'ID Pesan',
     uuidFilterProps: '',
     phoneFilterProps: '',
-  
+    keywordFilter: '',
+
     BulkOrNot: "Single",
     typeMsg:"text",
     trigger:"None",
@@ -82,7 +86,8 @@ export const actions=store=>({
             store.setState({
                 historyList: response.data,
                 latestUpdate: Date().toString(),
-                uuidFilterProps: value
+                uuidFilterProps: value,
+                keywordFilter: value
             })
         })
         .catch(error => {
@@ -129,7 +134,8 @@ export const actions=store=>({
             store.setState({
                 historyList: response.data,
                 latestUpdate: Date().toString(),
-                phoneFilterProps: value
+                phoneFilterProps: value,
+                keywordFilter: value
             })
         })
         .catch(error => {
