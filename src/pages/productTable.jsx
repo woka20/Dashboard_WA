@@ -9,6 +9,10 @@ import {Container,
         Table,
         Button} from 'react-bootstrap'
 import Header from '../components/header'
+import "../styles/bootstrapModal.min.css";
+import '../styles/productTable.css'
+import edit from '../images/edit.png'
+import ModalEditProduct from '../components/modalEditProduct'
 
 
 class ShowTable extends React.Component{
@@ -43,7 +47,8 @@ class ShowTable extends React.Component{
         return (
             <React.Fragment>
                 <Header menuActive = {'/tableproduct'} />
-                <Container>
+                <Container className = 'product-table-container'>
+                    <div className = 'product-table-title'>DAFTAR PRODUK</div>
                     <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
@@ -52,6 +57,7 @@ class ShowTable extends React.Component{
                                 <th>Phone Number</th>
                                 <th>API KEY</th>
                                 <th>Created At</th>
+                                <th>Ubah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,15 +68,16 @@ class ShowTable extends React.Component{
                                 <td>{index.phone_number}</td>
                                 <td>{index.api_key}</td>
                                 <td>{index.created_at}</td>
+                                <td>
+                                    <button onClick = {() => this.props.activateModal(index)} data-toggle = "modal" data-target = "#modalEditProduct" className = "product-table-modal-button">
+                                        <img style = {{width: "20px", height: "20px"}} src = {edit}/>
+                                    </button>
+                                </td>
                             </tr>)}
                         </tbody>
                     </Table>
-                    <Row>
-                        <Col><Button variant="primary" onClick={event=>this.props.history.push("/product")}>ADD PRODUCT</Button></Col>
-                       <Col> <Button variant="success" onClick={event=>this.props.history.push("/sending")}>SENDING MESSAGE</Button></Col>
-                      <Col><Button variant="danger" onClick={event=>this.props.logOutFunc(event)}>LOGOUT</Button></Col>
-                   </Row>
                 </Container>
+                <ModalEditProduct/>
             </React.Fragment>
         )
     }
