@@ -14,7 +14,6 @@ class HomepageHeader extends React.Component{
                     <div className = 'row header-container'>
                         <div className = 'col-md-4 col-sm-12 header-company-name'>
                             Hedwig Microservices
-                            <span className = 'homepage-header-title-span'><br />By Alterra Indonesia</span>
                         </div>
                         <div className = 'col-md-7 col-sm-12'></div>
                         <div className = 'col-md-1 col-sm-12 header-menu-container'>
