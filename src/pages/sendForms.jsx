@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {connect} from 'unistore/react'
 import {withRouter, Link} from 'react-router-dom'
 import {store, actions} from '../store'
@@ -14,7 +15,7 @@ import NonTextMsg from '../components/formMessageNonText'
 import BulkMessage from '../components/formBulkMsg'
 
 class SendingForm extends React.Component{
-    componentDidMount=()=>{
+    componentDidMount=async()=>{
         try{
             if (localStorage.getItem("token")===null){
                 this.props.history.push("/login")
@@ -23,6 +24,19 @@ class SendingForm extends React.Component{
         catch(err){
             this.props.history.push("/login")
         }
+      
+        const req={ method:"get",
+                    url:"http://127.0.0.1:5000/product",
+                    headers:{"Access-Control-Allow-Origin":"*", "Authorization":"Bearer "+ localStorage.getItem("token"), "Content-Type":"application/json"},
+                    }
+                await axios(req)
+                .then((response)=>{
+                    store.setState({productTab:response.data})
+                })
+                .catch((error)=>{
+                    alert(error)
+                })
+        
     }
 
     generateForm=(n1,n2)=>{
@@ -45,18 +59,23 @@ class SendingForm extends React.Component{
         return (
             <React.Fragment>
                 <Header menuActive = {'/sending'}/>
-                 <Container fluid>
+                <br/>
+                 <Container>
                      <Row>
                          <Col md="2">
+                            
                             <Dropdown>
+                            <p><strong>Ingin mengirim pesan satuan atau serentak (Bulk)? </strong></p>
                                 <DropdownButton variant="danger" title={this.props.BulkOrNot}>
                                     <Dropdown.Item onClick={event=>store.setState({BulkOrNot:"Single"})}> Single</Dropdown.Item>
                                     <Dropdown.Item onClick={event=>store.setState({BulkOrNot:"Bulk"})}>Bulk </Dropdown.Item>
                                 </DropdownButton>
                             </Dropdown>
                        </Col>
-                       <Col md="2">
+                       
+                       <Col md="3">
                             <Dropdown>
+                            <p><strong>Tipe pesan yang ingin dikirim?</strong>(Untuk "Bulk" silakan lewati bagian ini)</p>
                                 <DropdownButton variant="danger"  title={this.props.typeMsg}>
                                     <Dropdown.Item onClick={event=>store.setState({typeMsg:"text"})}> Text</Dropdown.Item>
                                     <Dropdown.Item onClick={event=>store.setState({typeMsg:"image"})}>Image</Dropdown.Item>
@@ -64,12 +83,16 @@ class SendingForm extends React.Component{
                                 
                                 </DropdownButton>
                             </Dropdown>
-                            <Col sm="2">
+                        </Col>
+                        <Col md="2">
                                <Button variant="primary" onClick={event=>this.generateForm(this.props.BulkOrNot, this.props.typeMsg)}>Confirm</Button>
-                            </Col>
-                       </Col>
+                        </Col>
+                
         
                      </Row>
+                     <br/>
+                     <br/>
+                     <br/>
                      <Row>
                          <Col md="3">
                          </Col>

@@ -48,12 +48,17 @@ class Dashboard extends React.Component{
             this.props.history.push("/login")
         }
     }
-    
+  
+    goSending=()=>{
+        this.props.history.push("/sending")
+    }
+
+    addingProduct=()=>{
+        this.props.history.push("/product")
+    }
+
     render(){
-        // Check whether the person who access has already logged in or not
-        if (this.props.logout === true){
-            this.props.history.push("/login")
-        }
+        
         store.setState({redirect: false})
 
         /**
@@ -152,5 +157,5 @@ class Dashboard extends React.Component{
 }
 
 
-export default connect('historyList, latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
+export default connect('historyList, logout,latestUpdate, typeMsg, BulkOrNot, redirect, newForm', actions)(withRouter(Dashboard))
 
