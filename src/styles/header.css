@@ -52,3 +52,9 @@
 .header-white-space{
     height: 80px;
 }
+
+/* ----- Homepage Header ----- */
+.homepage-header-title-span {
+    font-size: 15px;
+    font-weight: lighter;
+}
