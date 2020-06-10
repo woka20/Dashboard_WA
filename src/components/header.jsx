@@ -8,12 +8,15 @@ import '../styles/header.css'
 
 class Header extends React.Component{
     render(){
+        // Get company name
+        let companyName = localStorage.getItem("company_name")
+
         return (
             <React.Fragment>
                 <div className = 'container-fluid'>
                     <div className = 'row header-container'>
                         <div className = 'col-md-4 col-sm-12 header-company-name'>
-                            Halo, Alterra!
+                            Halo, {companyName}!
                         </div>
                         <div className = 'col-md-2 col-sm-12'></div>
                         <div className = 'col-md-6 col-sm-12 header-menu-container'>

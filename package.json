@@ -16,6 +16,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-unistore": "0.0.4",
+    "semantic-ui-react": "^0.88.2",
     "unistore": "^3.5.1"
   },
   "scripts": {

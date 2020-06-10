@@ -1,0 +1,15 @@
+.product-table-container {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.product-table-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.product-table-modal-button {
+    border: none;
+    background-color: inherit;
+}

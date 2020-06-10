@@ -9,7 +9,19 @@ const initialState={
     // Dashboard related
     historyList: [],
     latestUpdate: '',
-  
+
+    // Filter in dashboard
+    filterType: 'ID Pesan',
+    uuidFilterProps: '',
+    phoneFilterProps: '',
+    keywordFilter: '',
+
+    // Modal (edit product) related
+    modalEditProductId: '',
+    modalEditProductName: '',
+    modalEditPhone: '',
+    modalEditApiKey: '',
+
     BulkOrNot: "Single",
     typeMsg:"text",
     trigger:"None",
@@ -41,6 +53,159 @@ export const actions=store=>({
         store.setState({
             [event.target.name]:event.target.value
         })
+    },
+
+    /**
+     * The following method is designed to activate modal
+     */
+    activateModal: async (state, dataProduct) => {
+        store.setState({
+            modalEditProductId: dataProduct.id,
+            modalEditProductName: dataProduct.name,
+            modalEditPhone: dataProduct.phone_number,
+            modalEditApiKey: dataProduct.api_key
+        })
+    },
+
+    /**
+     * The following method is designed to save the change made in edit product modal
+     */
+    editProduct: async (state, productId) => {
+        /**
+        * Hit related API to get all messaging history from database which satisfied given UUID
+        */
+        // Prepare the URL
+        let url = initialState.baseUrl + "product/" + productId
+        
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "put",
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            data: {
+                name: store.getState().modalEditProductName,
+                phone_number: store.getState().modalEditPhone,
+                api_key: store.getState().modalEditApiKey
+            },
+            validateStatus: (status) => {
+                return status < 500
+            }
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                modalEditProductId: '',
+                modalEditProductName: '',
+                modalEditPhone: '',
+                modalEditApiKey: ''
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+            alert(error)
+        });
+    },
+
+    /**
+     * The following method is designed to filter message history by UUID
+     */
+    uuidFilter: async (state, event) => {
+        /**
+        * Hit related API to get all messaging history from database which satisfied given UUID
+        */
+        // Prepare the URL
+        let value = event.target.value
+        let url = initialState.baseUrl + "message/history"
+        if (value !== "" && value !== null) {
+            url += "/id/" + value
+        }
+        
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "get",
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            params: {
+                p: 1,
+                rp: 25,
+            },
+            validateStatus: (status) => {
+                return status < 500
+            }
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                historyList: response.data,
+                latestUpdate: Date().toString(),
+                uuidFilterProps: value,
+                keywordFilter: value
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+            alert(error)
+        });
+    },
+
+    /**
+     * The following method is designed to filter message history by phone number
+     */
+    phoneFilter: async (state, event) => {
+        /**
+        * Hit related API to get all messaging history from database which satisfied given UUID
+        */
+        // Prepare the URL
+        let value = event.target.value
+        let url = initialState.baseUrl + "message/history"
+        if (value !== "" && value !== null) {
+            url += "/num/" + value
+        }
+        
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+            method: "get",
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            params: {
+                p: 1,
+                rp: 25,
+            },
+            validateStatus: (status) => {
+                return status < 500
+            }
+        };
+
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(response => {
+            // Set the store using the data returned by the API
+            store.setState({
+                historyList: response.data,
+                latestUpdate: Date().toString(),
+                phoneFilterProps: value,
+                keywordFilter: value
+            })
+        })
+        .catch(error => {
+            console.warn(error);
+            alert(error)
+        });
     },
 
     /**
@@ -172,6 +337,8 @@ export const actions=store=>({
     logOutFunc:(state,event)=>{
         localStorage.removeItem("token")
         localStorage.removeItem("log_as")
+        localStorage.removeItem("company_name")
+        await store.setState({logout:true})
         store.setState({logout:true})
 
     }
