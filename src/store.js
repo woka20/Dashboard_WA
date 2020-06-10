@@ -334,7 +334,7 @@ export const actions=store=>({
                 .catch((error)=>alert(error))
     },
     
-    logOutFunc:(state,event)=>{
+    logOutFunc: async (state,event)=>{
         localStorage.removeItem("token")
         localStorage.removeItem("log_as")
         localStorage.removeItem("company_name")
