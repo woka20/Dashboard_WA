@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'unistore/react'
 import {store,actions} from '../store'
 //Bootrsap For Layout
@@ -61,8 +61,13 @@ class Login extends React.Component{
                                                                 <Form.Label>Password</Form.Label>
                                                                 <Form.Control type="password" name="pass_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
                                                         </FormGroup>
-                                                        <Button variant="primary" onClick={()=>this.loginFunc()}>Login</Button>
-                                                        </Form>
+                                                        <div style = {{textAlign: 'center'}}>
+                                                                <Button variant="primary" onClick={()=>this.loginFunc()}>Login</Button>
+                                                        </div>
+                                                </Form>
+                                                <div style = {{marginTop: '15px', textAlign: 'center'}}>
+                                                        <span style = {{fontSize: '15px', fontWeight: 'lighter'}}>Belum punya akun? Daftar <Link to = {'/register'}>disini</Link></span>
+                                                </div>
                                         </Col>
                                         <Col md = "4" sm = "1"></Col>
                                 </Row>

@@ -35,13 +35,13 @@ class LandingPage extends React.Component{
                             <h2 style = {{textAlign: 'center'}}>About Us</h2>
                             <Container>
                                 <Row>
-                                    <Col sm = "12" md = "6">
+                                    <Col sm = "12" md = "6" style = {{paddingTop: '80px'}}>
                                         <img src = {hedwigLogo} alt = "Logo Hedwig" />
                                     </Col>
-                                    <Col sm = "12" md = "6" style = {{paddingTop: '50px'}}>
+                                    <Col sm = "12" md = "6" style = {{paddingTop: '25px'}}>
                                         <p style = {{fontSize: '20px'}}>
-                                            Hedwig (PT Marka Kreasi Persada) adalah perusahaan yang memberikan layanan jasa 
-                                            konsultasi dan implementator di bidang IT.
+                                        Hedwig merupakan layanan Message Broadcasting dari PT Marka Kreasi Persada yang diperuntukan untuk kebutuhan internal dari PT Marka Kreasi Persada.
+                                        <br />Dengan adanya layanan ini, produk-produk digital yang dibangun oleh PT Marka Kreasi Persada dapat terhubung dengan pelanggan melalui Whatsapp, baik digunakan untuk notifikasi maupun untuk marketing.
                                         </p>
                                     </Col>
                                 </Row>
