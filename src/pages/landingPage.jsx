@@ -24,8 +24,9 @@ class LandingPage extends React.Component{
                         <Col sm = "12" style = {{textAlign: 'center', padding: '80px 150px 80px 150px', backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
                             <h1 style = {{marginBottom: '30px'}}>Selamat Datang di Hedwig.</h1>
                             <p style = {{fontSize: '25px'}}>
-                                Selamat datang di mikroservis Hedwig oleh Alterra Indonesia. Untuk informasi lebih lanjut, 
-                                silahkan hubungi kami melalui email di hedwig-wa@markapersada.id
+                                Selamat datang di mikroservis Hedwig. Untuk informasi lebih lanjut, 
+                                silahkan hubungi kami melalui email di 
+                                <br/><strong>hedwig-wa@markapersada.id</strong>
                             </p>
                         </Col>
                     </Row>
