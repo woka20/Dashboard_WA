@@ -49,17 +49,23 @@ class Login extends React.Component{
                 //The interface for login form
                 <React.Fragment>
                         <Container>
-                                <Form>
-                                   <FormGroup>
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control type="text" name="user_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
-                                   </FormGroup>
-                                   <FormGroup>
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" name="pass_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
-                                   </FormGroup>
-                                   <Button variant="primary" onClick={()=>this.loginFunc()}>Login</Button>
-                                </Form>
+                                <Row>
+                                        <Col md = "4" sm = "1"></Col>
+                                        <Col md = "4" sm = "10" style = {{marginTop: '200px', padding: '30px', border: '1px solid black', borderRadius: '15px'}}>
+                                                <Form>
+                                                        <FormGroup>
+                                                                <Form.Label>Username</Form.Label>
+                                                                <Form.Control type="text" name="user_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                                <Form.Label>Password</Form.Label>
+                                                                <Form.Control type="password" name="pass_log" onChange={event=>this.props.handleSetGlobal(event)}></Form.Control>
+                                                        </FormGroup>
+                                                        <Button variant="primary" onClick={()=>this.loginFunc()}>Login</Button>
+                                                        </Form>
+                                        </Col>
+                                        <Col md = "4" sm = "1"></Col>
+                                </Row>
                         </Container>
 
                 </React.Fragment>
